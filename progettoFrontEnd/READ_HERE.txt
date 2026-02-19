@@ -10,3 +10,5 @@ Il file main.js crea l'app anche qui (prestare molta attenzione alle modifiche)
 il file index.html e style.css importano librerie e definiscono lo stile generale dell'app (il css ha molti commenti)
 
 Implementata la comunicazione con il back-end vedere il file App.vue nel percorso: src/App.vue
+
+Potresti solo dirmi come quli pagine dovrebbere venire nel sito e quali servizi devo offrire che non credo di aver capito bene ;)
