@@ -1,0 +1,12 @@
+ho creato i componenti principali dell'app il login(src/components/Login.vue)
+la registrazione(src/components/Register.vue.vue) e la home(src/components/Register.vue.vue)
+
+sono presenti delle funzioni con lo stesso nome in Login.vue e Register.vue quelle funzioni controlleranno solamente
+il verificatosi della registrazione o del login
+
+Il file index.js nella directory:"router" permette di cambiare le pagine (prestare molta attenzione alle modifice)
+Il file main.js crea l'app anche qui (prestare molta attenzione alle modifiche)
+
+il file index.html e style.css importano librerie e definiscono lo stile generale dell'app (il css ha molti commenti)
+
+Implementata la comunicazione con il back-end vedere il file App.vue nel percorso: src/App.vue

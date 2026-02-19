@@ -1,0 +1,10 @@
+JWT; https://www.freecodecamp.org/news/what-are-json-web-tokens-jwt/#heading-jwts-in-action-a-typical-authentication-flow
+
+JWT_2: https://jwtauditor.com/docs/jwt-fundamentals.html
+
+JWT_3: https://codesamplez.com/development/json-web-token-crash-course
+
+JWT_4: https://datatracker.ietf.org/doc/html/rfc7519#section-1
+
+
+
