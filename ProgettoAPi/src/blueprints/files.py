@@ -35,7 +35,14 @@ file_storage = FileStorage("./files")
 @rate_limit(20, datetime.timedelta(minutes=3))
 @jwt_required
 async def file_endpoint(payload, token):
-    name = hashlib.sha1(str(payload["id"]).encode()).hexdigest() + ".mp3"
+    #Stampe di debug
+    #print("SUCCESSFULY ENTERED THE BODY OF THE FILE ENDPOINT FUNCTION")
+    #print("Payload ricevuto:", payload)
+
+    #Qui sopra è stata commentata la riga di che c'era prima 
+    #name = hashlib.sha1(str(payload["id"]).encode()).hexdigest() + ".mp3"
+    jwt_header, jwt_payload = payload
+    name = hashlib.sha1(str(jwt_payload["id"]).encode()).hexdigest() + ".mp3"
 
     if not await file_storage.check(name):
         return await create_response(
@@ -46,6 +53,7 @@ async def file_endpoint(payload, token):
             token,
         )
 
+    #print("RETURNIG FILE TO THE FRONT-END")
     return await send_from_directory("./files", name)
 
 
@@ -54,11 +62,26 @@ async def file_endpoint(payload, token):
 @jwt_required
 async def add_endpoint(_, token):
     file_request = await request.files
+    uploaded_file=file_request.get("file")
 
-    if not await File.check(
-        request.content_type, request.content_length, file_request["file"].filename
+    if not uploaded_file:
+        return await create_response(
+            400,
+            "error",
+            {"message": "No file uploaded."},
+            True,
+            request.cookies.get("token"),
+        )
+
+    #print("ENTERING [File.check()]")
+    #print("File.check input:", request.content_type, request.content_length, file_request["file"].filename)
+    
+    #Questo pezzo di script limitava la possibilità di ricevere file da numeri di porta diversi
+    """if not await File.check(
+        uploaded_file.content_type,
+        uploaded_file.content_length,
+        uploaded_file.filename
     ):
-
         return await create_response(
             400,
             "error",
@@ -67,7 +90,18 @@ async def add_endpoint(_, token):
             },
             True,
             request.cookies.get("token"),
-        )
+        )"""
+    
+    #controllo che ci sia un mp3 
+    filename=uploaded_file.filename.lower()
+    if not filename.endswith(".mp3"):
+        return await create_response(400,"error",{"message": "Only mp3 files allowed"},True,request.cookies.get("token"))
+    
+    #controllo sulla dimensione
+    if uploaded_file.content_length > 6*1024*1024:
+        return await create_response(400,"error",{"message": "File too large (Max 6MB)"},True,request.cookies.get("token"))
+
+    #print("CHECKING DONE")
 
     jwt = await decode_jwt(token)
 
@@ -76,7 +110,7 @@ async def add_endpoint(_, token):
     name = hashlib.sha1(str(user_id).encode()).hexdigest() + ".mp3"
 
     if not await file_storage.check(name):
-        await file_request["file"].save(f"./files/{name}")
+        await uploaded_file.save(f"./files/{name}")
         await file_storage.add(name)
 
     return await create_response(

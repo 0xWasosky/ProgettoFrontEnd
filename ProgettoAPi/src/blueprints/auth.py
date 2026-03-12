@@ -28,7 +28,7 @@ async def login_endpoint():
             }
 
             token = await encode_jwt(payload=token_payload, secret=SECRET)
-            response = await create_response(200, "success", {"message": 0}, (token, 6 * 60))
+            response = await create_response(200, "success", {"message": 0}, cookie=(token, 6 * 60))
             return response
 
         return await create_response(400, "error", {"message": "Incorrect credentials"})

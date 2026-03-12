@@ -10,3 +10,8 @@ Il file main.js crea l'app anche qui (prestare molta attenzione alle modifiche)
 il file index.html e style.css importano librerie e definiscono lo stile generale dell'app (il css ha molti commenti)
 
 Implementata la comunicazione con il back-end vedere il file App.vue nel percorso: src/App.vue
+
+Implementata la possibilità di caricare file audio nel server ed ogni volta che viene fatto l'accesso
+vengono ricaricati il codice dell'impmenetazione si può vedere il src/Home.vue
+
+Il file "Setting.vue" è ancora in sviluppo in ogni caso lì verrà data la possibilità di modificare la foto profilo, visualizzare dati vari ecc...

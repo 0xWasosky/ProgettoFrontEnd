@@ -2,10 +2,32 @@ import json
 from functools import wraps
 
 from quart import make_response, request, Response
-from ..Jwt import verify_jwt, is_expired
+from ..Jwt import verify_jwt, is_expired, decode_jwt
+from quart import jsonify
 
 from core import SECRET
 
+"""async def gen_response(status, result, data, cookie=None):
+    response=jsonify({
+        "result": result,
+        "data": data
+    })
+
+    response.status_code=status
+
+    if cookie:
+        token, exp=cookie
+
+        response.set_cookie(
+            "token",
+            token,
+            max_age=exp,
+            httponly=True,
+            samesite="None",
+            secure=False
+        )
+    
+    return response"""
 
 async def create_response(
     status_code: int,
@@ -48,9 +70,9 @@ async def create_response(
                 key="token",
                 value=cookie[0],
                 max_age=cookie[1],
-                secure=True,
+                secure=False,   #necessario per potere leggere da http è necessario impostarlo a false
                 httponly=True,
-                samesite="Strict",
+                samesite="Lax",  #se si cambiano i numeri di porta non si può leggere (in questo caso localhost:5000 e localhost:5173)
             )
 
     if not headers is None:
@@ -78,26 +100,33 @@ def jwt_required(function):
         """
 
         token = request.cookies.get("token")
-        payload = await request.get_json()
+        #payload = await request.get_json()
+        #il fornt-end non invia una richiesta se si può dire esplicita ma reinvia
+        #il token con la riga di codice '(credentials: "include")' in questo modo 
+        #il server di quale utente è richiesto il file, siccome nel token è presente l'id dell'utente; 
+        #non eseiste dunque nessun json e di conseguenza il payload sarà sempre nullo 
 
         if not token:
-            response = await create_response(
-                401, "error", {"message": "Token not found"}
-            )
-
+            response = await create_response(401, "error", {"message": "Token not found"})
             return response
-        elif not await verify_jwt(token, SECRET):
+        
+        if not await verify_jwt(token, SECRET):
             response = await create_response(401, "error", {"mesage": "Invalid token"})
-
             return response
 
-        elif await is_expired(token):
-            response = await create_response(
-                401, "error", {"message": "The token is expired"}
-            )
-
+        if await is_expired(token):
+            response = await create_response(401, "error", {"message": "The token is expired"})
             return response
-        else:
-            return await function(payload, token, *args, **kwargs)
+        
+        """else:
+            return await function(payload, token, *args, **kwargs)"""
+        
+        payload=await decode_jwt(token) #viene decodificato il token per ottenere il payload
+        if not payload:
+            print("PAYLOAD IS EMPTY")
+            return await create_response(401, "error", {"message": "Could not decode token"})
+        
+        return await function(payload, token, *args, **kwargs)
+
 
     return wrapper
