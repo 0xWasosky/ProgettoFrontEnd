@@ -1,0 +1,6 @@
+1) Refactor code in database/models/user.py -> update needs to be more general 
+2) Update every response function to sent out the old session cookie 
+3) Expends the TTL of the session 
+4) Unify function, variables and classes names ( use camel case ) 
+5) Create standard docs for the the api
+
