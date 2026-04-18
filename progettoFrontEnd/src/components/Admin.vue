@@ -8,7 +8,7 @@ import { handleUnauthorizedResponse } from '../utils/session'
 export default {
   setup() {
     const ADMIN_ACCESS_KEY =
-      import.meta.env.VITE_ADMIN_ACCESS_KEY || 'eqvU148VnKHornxdmaUX08RlRsj6tDkVMqpUksf4qdM'
+      import.meta.env.VITE_ADMIN_ACCESS_KEY || 'eqvU148VnKHornxdmaUX08ElRsj6tDkVMqpUksf4qdM'
     const IMAGE_ACCESS_KEY =
       import.meta.env.VITE_IMAGE_ACCESS_KEY || 'ZaE86wpZMl8lAjpMI7yezFaSNIUv4yS84LzWoEOdcPI'
 
