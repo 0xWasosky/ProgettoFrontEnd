@@ -113,7 +113,7 @@ const toggleTheme = () => {
     </div>
   </nav>
 
-  <div id="classes-btn">
+  <!--<div id="classes-btn">
     <router-link to="/classes">
       See All classes
     </router-link>
@@ -122,6 +122,13 @@ const toggleTheme = () => {
   <router-link to="admin">
     Admin
   </router-link>
+
+  <router-link to="presentation">Presentation</router-link>-->
+  <div class="top-nav">
+    <router-link to="/classes">Classi</router-link>
+    <router-link to="/admin">Admin</router-link>
+    <router-link to="/presentation">Presentazione</router-link>
+  </div>
 
   <button class="theme-toggle" @click="toggleTheme">
     {{ isDarkMode ? '☼' : '☀︎' }}
@@ -141,7 +148,7 @@ const toggleTheme = () => {
 
           <audio ref="audioPlayer" controls style="display:none;"></audio>
 
-          <a v-if="downloadUrl" :href="downloadUrl" :download="`recording_${username.value}.mp3`" class="download-btn">
+          <a v-if="downloadUrl" :href="downloadUrl" :download="`recording_${username}.mp3`" class="download-btn">
             Download Audio
           </a>
         </div>
@@ -150,6 +157,7 @@ const toggleTheme = () => {
       </div>
     </div>
   </div>
+  
 </template>
 
 <style>
@@ -159,7 +167,7 @@ const toggleTheme = () => {
   --text-color: #2c3e50;
   --input-bg: #fff;
   --input-border: #ccc;
-  --button-bg: #3490dc;
+  --button-bg: #1c99ff;
   --button-hover: #2176b8;
   --nav-bg: #ddd;
   --borders: #000;
@@ -174,13 +182,43 @@ const toggleTheme = () => {
   --text-color: #f5f5f5;
   --input-bg: #3a3a4a;
   --input-border: #555;
-  --button-bg: #ff932f;
+  --button-bg: #ff1717;
   --button-hover: #ff9e0c;
   --nav-bg: #333;
   --borders: #fff;
   --empty: #3a3a3a;
   --max: #000;
   --min: #ffffff;
+}
+
+.top-nav {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--borders);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.top-nav a:hover {
+  background: var(--button-bg);
+  color: white;
+  transform: scale(1.05);
 }
 
 body {

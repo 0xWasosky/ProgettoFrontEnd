@@ -98,7 +98,7 @@ def jwt_required(function):
 
             return response
         elif not await verify_jwt(token, SECRET):
-            response = await create_response(401, "error", {"mesage": "Invalid token"})
+            response = await create_response(401, "error", {"message": "Invalid token"})
 
             return response
 

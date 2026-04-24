@@ -7,6 +7,8 @@ import ChangePassword from '@/components/ChangePassword.vue'
 import ChangeProfilePicture from '@/components/ChangeProfilePicture.vue'
 import Classes from '@/components/Classes.vue'
 import Admin from '@/components/Admin.vue'
+import Presentation from '@/components/Presentation.vue'
+import Presentation2 from '@/components/Presentation2.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,8 @@ const router = createRouter({
     { path: '/change_profile_picture', name: 'ChangeProfilePicture', component: ChangeProfilePicture, meta: { requiresAuth: true} },
     { path: '/classes', name: 'Classes', component: Classes, meta: { requiresAuth: true}},
     { path: '/admin', name: 'Admin', component: Admin, meta: {requiresAuth: true} },
+    { path: '/presentation', name: 'Presentation', component: Presentation, meta: {requiresAuth: true}},
+    { path: '/presentation2', name: 'Presentation2', component: Presentation2, meta: {requiresAuth: true}},
   ],
 })
 

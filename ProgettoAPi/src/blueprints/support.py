@@ -7,9 +7,10 @@ from quart_rate_limiter import rate_limit
 
 from _libs.Flask import jwt_required, create_response
 
-from core import classes_db, user_db, ADMIN_PWD, IMAGE_PWD
+from core import classes_db, user_db, ADMIN_PWD_HASH, IMAGE_PWD_HASH
 
 from argon2 import PasswordHasher
+from argon2.exceptions import InvalidHashError, VerificationError, VerifyMismatchError
 from PIL import Image
 
 
@@ -24,6 +25,7 @@ STUDENT_CREDENTIALS_FILE = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), "files", "student_credentials.txt"
 )
 credentials_file_lock = asyncio.Lock()
+access_password_hasher = PasswordHasher()
 
 #Questa è la funzione "Incriminata" che facilita attacchi hacker potremmo
 #Ti prego dammi dei consigli su cosa fare perché ora non ho proprio idea
@@ -49,6 +51,16 @@ async def save_student_credentials(entry: dict[str, str]) -> None:
     async with credentials_file_lock:
         await asyncio.to_thread(append_student_credentials, entry)
 
+#Qui è stata solo aggiunta la funzione che fa la verifica con l'hash(24/04/2026)
+def verify_access_password(password: str, password_hash: str) -> bool:
+    if not isinstance(password, str) or len(password.strip()) == 0:
+        return False
+
+    try:
+        return access_password_hasher.verify(password_hash, password)
+    except (VerifyMismatchError, VerificationError, InvalidHashError):
+        return False
+
 #Qui viene creato e registarto l'account di uno studente
 #credo però che ci sia un problema con l'incremento degli id
 #Qui ho sostanzialmente aggiunto il fatto che da risposte diverse
@@ -59,14 +71,15 @@ async def studentts_endpoint(payload, token):
     global id
 
     students = payload.get("students")
+    access_password = str(payload.get("access_password", ""))
     if not isinstance(students, list) or len(students) == 0:
         return await create_response(
             400, "error", {"message": "The students payload must be a non-empty list."}, True, token
         )
 
-    if request.headers.get("access") != ADMIN_PWD:
+    if not verify_access_password(access_password, ADMIN_PWD_HASH):
         return await create_response(
-            401, "error", {"message": "The account does not have access to this function."}, True, token
+            401, "error", {"message": "The access password is not correct."}, True, token
         )
 
     for student in students:
@@ -144,11 +157,13 @@ async def studentts_endpoint(payload, token):
 @jwt_required
 async def add_image(payload, token):
     file_request = await request.files
+    form_data = await request.form
     class_ = str(request.args.get("class", "")).strip()
+    access_password = str(form_data.get("access_password", ""))
 
-    if request.headers.get("access") != IMAGE_PWD:
+    if not verify_access_password(access_password, IMAGE_PWD_HASH):
         return await create_response(
-            401, "error", {"message": "The account does not have access to this function."}, True, token
+            401, "error", {"message": "The access password is not correct."}, True, token
         )
 
     if not class_:
