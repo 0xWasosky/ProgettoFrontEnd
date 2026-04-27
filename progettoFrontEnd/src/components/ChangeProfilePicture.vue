@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { isDarkMode, toggleTheme, username, initTheme } from '../jsGraphicManaging/toggleLDModeButton.js'
 import { buildApiUrl } from '../utils/api'
 import { handleUnauthorizedResponse } from '../utils/session'
+import { cacheProfilePictureBlob, getCachedProfilePicture, setCachedProfilePicture } from '../utils/profilePictureCache'
 import defaultPreviewImage from '../../assets/default_profile_pictures/default.jpg'
 import defaultImage0 from '../../assets/default_profile_pictures/default.jpg'
 import defaultImage1 from '../../assets/default_profile_pictures/default1.jpg'
@@ -16,7 +17,6 @@ export default {
   setup() {
     const iconContainer = ref(null)
     const fileInput = ref(null)
-    const imageUrl = ref(null)
 
     const  convertToJPG = (file, quality = 0.9) => {
         return new Promise((resolve, reject) => {
@@ -66,6 +66,8 @@ export default {
     }
 
     const loadProfileImage = async () => {
+      const cachedProfilePicture = getCachedProfilePicture()
+
       try {
         const response = await fetch(buildApiUrl('/files/image/get'), {
           method: 'GET',
@@ -77,24 +79,21 @@ export default {
         }
 
         if (!response.ok) {
-          renderPreview(defaultPreviewImage)
+          renderPreview(cachedProfilePicture || defaultPreviewImage)
           return
         }
 
         const blob = await response.blob()
-        if (imageUrl.value) {
-          URL.revokeObjectURL(imageUrl.value)
-        }
-
-        imageUrl.value = URL.createObjectURL(blob)
-        renderPreview(imageUrl.value)
+        const cachedImage = await cacheProfilePictureBlob(blob)
+        renderPreview(cachedImage || cachedProfilePicture || defaultPreviewImage)
       } catch {
-        renderPreview(defaultPreviewImage)
+        renderPreview(cachedProfilePicture || defaultPreviewImage)
       }
     }
 
     onMounted(() => {
       initTheme()
+      renderPreview(getCachedProfilePicture() || defaultPreviewImage)
       loadProfileImage()
     })
 
@@ -157,8 +156,9 @@ export default {
 
                 const result = await response.json()
                 if (response.ok) {
+                    const cachedImage = await cacheProfilePictureBlob(fileUpload)
+                    renderPreview(cachedImage || previewURL)
                     alert('Immagine caricata con successo!')
-                    loadProfileImage()
                 } else {
                     alert('Errore nel caricamento: ' + (result?.data?.message ?? result?.message ?? 'Upload failed'))
                     loadProfileImage()
@@ -175,6 +175,7 @@ export default {
 
         if (iconContainer.value && conferma) {
             renderPreview(imgSrc)
+            setCachedProfilePicture(imgSrc)
         }
     }
 

@@ -1,30 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import { notifySessionExpired } from '../utils/session'
-//import iconImg from '@/assets/images/icon.png'
+import defaultProfileImage from '../../assets/images/icon.png'
+import { getCachedProfilePicture } from '../utils/profilePictureCache'
 
 const username = ref(localStorage.getItem('username') || 'Guest')
+const profileImageSrc = ref(getCachedProfilePicture() || defaultProfileImage)
 
 const isDarkMode = ref(false)
-//const user = ref({ id: null, username: '' })
 
-const iconContainer = ref(null)
 onMounted(() => {
   isDarkMode.value = localStorage.getItem('theme') === 'dark'
   document.documentElement.setAttribute(
     'data-theme',
     isDarkMode.value ? 'dark' : 'light'
   )
-
-  var foundImage=false
-  if(!foundImage){
-    const img = document.createElement('img')
-    img.src = "../../assets/images/icon.png"
-    img.style.width = '100%'
-    iconContainer.value.appendChild(img)
-  }
-  
+  profileImageSrc.value = getCachedProfilePicture() || defaultProfileImage
 })
 
 const toggleTheme = () => {
@@ -55,7 +46,9 @@ const handleLogout = () => {
     <div class="centered"><h1>User Information</h1></div>
 
     <router-link to="/change_profile_picture" >
-      <div ref="iconContainer" class="circle moveUp"></div>
+      <div class="circle moveUp">
+        <img :src="profileImageSrc" alt="User profile picture" class="profile-picture">
+      </div>
     </router-link>
 
     <!--<div class="container seeBorder">
@@ -103,6 +96,13 @@ const handleLogout = () => {
 .circle:hover{
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.profile-picture{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 button{

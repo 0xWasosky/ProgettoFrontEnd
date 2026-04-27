@@ -59,6 +59,10 @@ onMounted(() => {
     {{ isDarkMode ? '🌙 Dark Mode' : '☀️ Light Mode' }}
   </button>
 
+  <div class="top-nav">
+    <router-link to="/about">Info</router-link>
+  </div>
+
   <div class="login-container">
     <div class="login-card">
       <h1>Login</h1>
