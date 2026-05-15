@@ -88,13 +88,13 @@ const submitChangePassword = async () => {
   <div class="container">
     <div class="containerV">
       <div class="centered">
-        <h1>Change Password</h1>
+        <h1>Cambia Password</h1>
       </div>
 
       <div class="containerB">
         <form @submit.prevent="submitChangePassword" class="register-form">
           <div>
-            <label>Old password:</label>
+            <label>Vecchia Password:</label>
             <div style="display:flex; gap:8px; align-items:center;">
               <input
                 :type="showOldPassword ? 'text' : 'password'"
@@ -111,7 +111,7 @@ const submitChangePassword = async () => {
           </div>
 
           <div>
-            <label>New password:</label>
+            <label>Nuova Password:</label>
             <div style="display:flex; gap:8px; align-items:center;">
               <input
                 :type="showNewPassword ? 'text' : 'password'"
@@ -127,7 +127,7 @@ const submitChangePassword = async () => {
             </div>
           </div>
 
-          <button type="submit">Update password</button>
+          <button type="submit">Aggiorna Password</button>
 
           <p v-if="apiError" class="error">{{ apiError }}</p>
           <p v-if="apiMessage" class="success">{{ apiMessage }}</p>

@@ -43,7 +43,7 @@ const handleLogout = () => {
         {{ isDarkMode ? '☼' : '☀︎' }}
     </button>
 
-    <div class="centered"><h1>User Information</h1></div>
+    <div class="centered"><h1>Informazioni sull'utente</h1></div>
 
     <router-link to="/change_profile_picture" >
       <div class="circle moveUp">
@@ -67,14 +67,14 @@ const handleLogout = () => {
     </div>-->
 
     <div class="containerV1 seeBorder">
-        <h3>User Name: {{ username }}</h3>
-        <h3>Class: </h3>
+        <h3>Nome utente: {{ username }}</h3>
+        <!--<h3>Class: </h3>-->
         
         <router-link to="/change_password">
-          <button>Change Password</button>
+          <button>Cambia Password</button>
         </router-link>
 
-        <button @click="handleLogout">LOG OUT</button>
+        <button @click="handleLogout">Termina Sessione</button>
     </div>
 
 </template>

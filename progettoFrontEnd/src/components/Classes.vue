@@ -302,7 +302,7 @@ const downloadAllClassImages = async () => {
 </script>
 
 <template>
-  <h1 class="centered">Classes</h1>
+  <h1 class="centered">Visualizzazione delle classi</h1>
 
   <div class="top-nav-single">
     <router-link to="/home">Torna alla home</router-link>
@@ -324,7 +324,7 @@ const downloadAllClassImages = async () => {
     </button>
   </div>
 
-  <p v-if="isLoading" class="status-message">Loading classes...</p>
+  <p v-if="isLoading" class="status-message">Caricamento delle classi...</p>
   <p v-else-if="errorMessage" class="status-message error-text">{{ errorMessage }}</p>
   <template v-else>
     <p v-if="classImageActionErrorMessage" class="action-status-message error-text">
@@ -374,7 +374,7 @@ const downloadAllClassImages = async () => {
           v-if="selectedClass === classe.name && isDetailsLoading"
           class="empty-state"
         >
-          Loading students...
+          Caricamento degli studenti
         </p>
 
         <p
@@ -412,7 +412,7 @@ const downloadAllClassImages = async () => {
             ></div>
 
             <p v-else class="student-audio-status">
-              No audio uploaded yet.
+              Lo studente non ha ancora caricato audio
             </p>
 
             <button
@@ -430,7 +430,7 @@ const downloadAllClassImages = async () => {
           v-else-if="selectedClass === classe.name"
           class="empty-state"
         >
-          No students found for this class.
+          Nessuno studente è stato trovato in questa classe
         </p>
       </div>
     </div>

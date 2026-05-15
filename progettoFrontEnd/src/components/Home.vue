@@ -179,7 +179,7 @@ const toggleTheme = () => {
     <div class="QRcontainer">
       <div class="home-content">
         <div class="containerV">
-          <h1>Record Voice & Generate QR</h1>
+          <h1>Registra la tua voce e genera un codice QR</h1>
 
           <button @click="toggleRecording" class="voice-btn" id="recording-btn">
             {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
@@ -188,7 +188,7 @@ const toggleTheme = () => {
           <audio ref="audioPlayer" controls style="display:none;"></audio>
 
           <a v-if="downloadUrl" :href="downloadUrl" :download="`recording_${username}.mp3`" class="download-btn">
-            Download Audio
+            Scarica l'audio
           </a>
         </div>
 

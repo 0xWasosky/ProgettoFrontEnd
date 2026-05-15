@@ -210,7 +210,7 @@ export default {
         </router-link>
     </div>
 
-    <h1 class="centered">Change Profile Picture</h1>
+    <h1 class="centered">Cambia foto profilo</h1>
 
     <div ref="iconContainer" class="circle1" id="preview" @click="openFilePicker"></div>
     <input type="file" ref="fileInput" @change="handleFileChange" style="display:none" accept="image/*"/>

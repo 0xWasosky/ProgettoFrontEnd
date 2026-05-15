@@ -94,7 +94,7 @@ onMounted(() => {
         </div>
 
         <div>
-          <label>Confirm Password:</label>
+          <label>Conferma Password:</label>
           <div class="password-input">
             <input :type="showConfirmPassword ? 'text' : 'password'" v-model="confirmPassword" />
             <button
