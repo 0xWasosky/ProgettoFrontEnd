@@ -153,7 +153,7 @@ onUnmounted(() => {
       />
     </router-view>
   </div>
-    <footer class="footer">Il servizio e' stato creato da Jacopo Seglie della 4E info e da Adriano Loiero 4C info</footer>
+    <footer class="footer">Progetto scolastico presentato dal prof. Nicola M. nell'a.s. 2025/2026 a cui hanno lavorato gli alunni Jacopo Seglie della 4E info e Adriano Loiero 4C info</footer>
 </template>
 
 <style scoped>

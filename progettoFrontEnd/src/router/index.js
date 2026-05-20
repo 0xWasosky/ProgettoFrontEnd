@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from '@/components/Index.vue'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
@@ -13,9 +13,9 @@ import Presentation2 from '@/components/Presentation2.vue'
 import About from '@/components/About.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    {path: '/', name: 'Index', component: Index},
+    { path: '/', name: 'Index', component: Index },
     { path: '/login', name: 'Login', component: Login },
     { path: '/register', name: 'Register', component: Register },
     { path: '/about', name: 'About', component: About},

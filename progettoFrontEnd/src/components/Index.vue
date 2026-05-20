@@ -1,13 +1,19 @@
 <script setup>
 import {ref, onMounted} from 'vue'
+import {useRouter} from 'vue-router'
 
 const isDarkMode = ref(false)
+const router = useRouter()
 
 const toggleTheme = () => {
   isDarkMode.value = !isDarkMode.value
   const theme = isDarkMode.value ? 'dark' : 'light'
   document.documentElement.setAttribute('data-theme', theme)
   localStorage.setItem('theme', theme)
+}
+
+const goTo = (routeName) => {
+  router.push({name: routeName})
 }
 
 onMounted(() => {
@@ -26,28 +32,27 @@ onMounted(() => {
         {{ isDarkMode ? '☼' : '☀︎' }}
     </button>
 
-    <div class="centered"><h1>Benvenuto nell'annuario del I.I.S Europa Unita di Chivasso</h1></div>
+    <div class="centered" id="title">Annuario del I.I.S Europa Unita di Chivasso</div>
 
-    <div class="container">
+    <div class="container" style=" margin: 0px; padding: 0px;">
 
-        <div class="image" style="margin: auto;">
+        <div class="image" style="margin: 0 auto 0 auto; position: relative; top: -50px;">
             <img src="../../assets/images/logoEU.jpg" width="100%">
-        </div>
+        </div>-
 
         <div class="paragraph">
-            <h2>Primo annuario dell'Europa Unita</h2>
-            <p>Questo è il primo annuario scolastico dell'europa unita nel quale vengono caricate le 
-                immagini delle foto di classe e gli studenti possono condividere la loro
-                esepreinza sull'anno corrente
+            <p style="font-weight: bold;">Questo è l'annuario scolastico dell'istituto Europa Unita dove potrete accedere per scaricare
+                le foto della vostra classe e gli studenti possono condividere la loro
+                esepreinza sull'anno corrente, sotto forma di audio interattivo.
             </p>
         </div>
 
-        <button class="index-btn">
-            <router-link to="/login">Login</router-link>
+        <button type="button" class="index-btn" @click="goTo('Login')">
+            Accedi all'annuario
         </button>
 
-        <button class="index-btn">
-            <router-link to="/about">Info</router-link>
+        <button type="button" class="index-btn" @click="goTo('About')">
+            Istruzioni
         </button>
     </div>
     
@@ -88,23 +93,19 @@ body{
     min-width: 300px;
 }
 
-.index-btn a{
-    text-decoration: none;
-    color: #fff;
-}
-
 .container{
     /*border: 1px solid black;*/
-    margin: 20px;
+    margin: 10px;
     display:flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    padding: 0px;
 }
 
 .image{
-    border: 1px solid var(--min);
+    /*border: 1px solid var(--min);*/
     max-width: 45%;
     border-radius: 24px;
     overflow: hidden;
@@ -116,5 +117,15 @@ body{
 
 .image img{
     align-self: center;
+}
+
+#title{
+    margin: 20px auto 0 auto;
+    padding: 0px; 
+    /*border: 1px solid black;*/ 
+    max-height: fit-content;
+    font-size: xx-large;
+    font-weight: bold;
+    color: var(--min);
 }
 </style>

@@ -1,4 +1,5 @@
 <script setup>
+//eqvU148VnKHornxdmaUX08ElRsj6tDkVMqpUksf4qdM Admin
 import { ref, onMounted } from 'vue'
 import { buildApiUrl } from '@/utils/api'
 import { handleUnauthorizedResponse } from '@/utils/session'
@@ -176,7 +177,7 @@ const toggleTheme = () => {
   <h1 id="greeting">Ciao {{ greeting }}!</h1>
   <div class="logoEU"><img src="../../assets/images/logoEU.jpg"></div>
 
-  <div class="container">
+  <div class="container" style="position: relative; top: -120px">
     <div class="QRcontainer">
       <div class="home-content">
         <div class="containerV">

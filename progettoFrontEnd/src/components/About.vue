@@ -20,11 +20,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="top-nav">
-    <nav aria-label="Navigazione principale">
-      <router-link to="/login">Autenticazione</router-link>
-    </nav>
-  </header>
+
+  <nav aria-label="Navigazione principale" class="top-nav" style="min-width: fit-content;">
+    <router-link to="/login">Autenticazione</router-link>
+  </nav>
 
   <button
     type="button"

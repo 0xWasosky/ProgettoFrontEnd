@@ -49,7 +49,7 @@ async def login_endpoint():
 #Lo ho leggermente modificato ma giusto per renderlo più solido quindi realmente ho modificato
 #solamnete l'inserimento che ora viene fatto con un dizionario (righe 82-90) la cui chiave è semplicemente username
 #ed adesso l'hashing delle password è espplicito(riga 87)
-"""@auth.route("/register", methods=["POST"])
+@auth.route("/register", methods=["POST"])
 @rate_limit(20, datetime.timedelta(minutes=3))
 async def register_endpoint():
     data: dict = await request.get_json()
@@ -100,4 +100,4 @@ async def register_endpoint():
         )
 
         return response
-    return await create_response(400, "error", {"message": "User already exist"})"""
+    return await create_response(400, "error", {"message": "User already exist"})

@@ -60,7 +60,7 @@ onMounted(() => {
   </button>
 
   <div class="top-nav">
-    <router-link to="/about">Info</router-link>
+    <router-link to="/about">Istruzioni</router-link>
   </div>
 
   <div class="login-container">
@@ -104,7 +104,7 @@ onMounted(() => {
         </div>-->
 
         <div class=register-link>
-          <router-link to="/">Ritorna all'indice</router-link>
+          <router-link to="/">Ritorna alla home</router-link>
         </div>
       </form>
     </div>
