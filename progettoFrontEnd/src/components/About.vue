@@ -22,7 +22,7 @@ onMounted(() => {
 <template>
 
   <nav aria-label="Navigazione principale" class="top-nav" style="min-width: fit-content;">
-    <router-link to="/login">Autenticazione</router-link>
+    <router-link to="/">Torna alla home</router-link>
   </nav>
 
   <button
@@ -49,8 +49,8 @@ onMounted(() => {
         </p>
 
         <div class="hero-actions">
-          <router-link to="/login" class="cta-primary">Accedi al progetto</router-link>
-          <a href="#funzionalita" class="cta-secondary">Scopri le funzioni</a>
+          <router-link to="/login" class="cta-primary">Vai al login</router-link>
+          <!--<a href="#funzionalita" class="cta-secondary">Scopri le funzioni</a>-->
         </div>
       </div>
 

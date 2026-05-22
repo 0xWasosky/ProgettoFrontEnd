@@ -1,19 +1,4 @@
 :root {
-  --bg-color: #f5f0f0;
-  --card-bg: #fff;
-  --text-color: #2c3e50;
-  --input-bg: #fff;
-  --input-border: #ccc;
-  --button-bg: #1c99ff;
-  --button-hover: #2176b8;
-  --nav-bg: #ddd;
-  --borders: #000;
-  --empty: #f2f2f2;
-  --max: #ffffff;
-  --min: #000;
-}
-
-[data-theme='dark'] {
   --bg-color: #1e1e2f;
   --card-bg: #2c2c3a;
   --text-color: #f5f5f5;
@@ -26,6 +11,21 @@
   --empty: #3a3a3a;
   --max: #000;
   --min: #ffffff;
+}
+
+[data-theme='dark'] {
+    --bg-color: #f5f0f0;
+  --card-bg: #fff;
+  --text-color: #2c3e50;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --button-bg: #1c99ff;
+  --button-hover: #2176b8;
+  --nav-bg: #ddd;
+  --borders: #000;
+  --empty: #f2f2f2;
+  --max: #ffffff;
+  --min: #000;
 }
 
 *{
@@ -276,10 +276,10 @@ button:hover{
 
   .theme-toggle {
     position: fixed;
-    top: 93%;
+    top: 0%;
     left: 5px;
-    min-width: 44px;
-    min-height: 44px;
+    max-width: 20px;
+    min-height: 20px;
   }
 
   .container {

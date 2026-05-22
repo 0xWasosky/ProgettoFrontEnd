@@ -10,8 +10,8 @@ const LOCAL_API_PORT = 5000
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  `http://80.211.24.126:${LOCAL_API_PORT}`
+  `http://80.211.24.196:${LOCAL_API_PORT}`
 
 export const buildApiUrl = (path) =>
   `${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`
-//80.211.24.126:5000
+//80.211.24.196:5000

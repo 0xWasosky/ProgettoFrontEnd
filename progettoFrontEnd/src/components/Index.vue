@@ -32,18 +32,17 @@ onMounted(() => {
         {{ isDarkMode ? '☼' : '☀︎' }}
     </button>
 
-    <div class="centered" id="title">Annuario del I.I.S Europa Unita di Chivasso</div>
+    <div class="centered" id="title"><br>Annuario scolastico del I.I.S. Europa Unita di Chivasso</div>
 
     <div class="container" style=" margin: 0px; padding: 0px;">
 
         <div class="image" style="margin: 0 auto 0 auto; position: relative; top: -50px;">
             <img src="../../assets/images/logoEU.jpg" width="100%">
-        </div>-
+        </div>
 
         <div class="paragraph">
-            <p style="font-weight: bold;">Questo è l'annuario scolastico dell'istituto Europa Unita dove potrete accedere per scaricare
-                le foto della vostra classe e gli studenti possono condividere la loro
-                esepreinza sull'anno corrente, sotto forma di audio interattivo.
+            <p style="font-weight: bold;">Gli alunni e il personale scolastico potrà accedere alla propria area riservata e inserire il contenuto multimediale facolativo (audio).
+             E' possibile anche scaricare gratuitamente l'annuario.
             </p>
         </div>
 
@@ -77,7 +76,8 @@ body{
     display: flex;
     flex-direction: column;
     color: var(--min);
-    max-width: 450px;
+    max-width: 850px;
+    text-align: center;
 }
 
 .paragraph h2{
